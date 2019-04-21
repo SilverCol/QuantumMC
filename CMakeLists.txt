@@ -3,3 +3,5 @@ project(vaja_IV_2)
 
 set(CMAKE_CXX_STANDARD 14)
 
+add_executable(run src/main.cpp src/MCQoscilator.cpp src/MCQoscilator.h)
+target_include_directories(run PRIVATE pcg_random/include)
