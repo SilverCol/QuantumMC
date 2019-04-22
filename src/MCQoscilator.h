@@ -22,6 +22,8 @@ public:
 private:
     std::vector<double> m_slices;
     std::uniform_real_distribution<double> m_step;
+    std::uniform_real_distribution<double> m_chi;
+    std::uniform_int_distribution<uint32_t> m_spot;
     pcg32_fast m_twister;
     double m_beta;
     double m_factor1;
