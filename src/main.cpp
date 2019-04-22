@@ -3,14 +3,16 @@
 //
 
 #include <fstream>
+#include <chrono>
 #include "MCQoscilator.h"
 
-static const double iBeta = .0;
-static const double dBeta = .01;
+static const double iBeta = 1;
+static const double dBeta = 1;
 static const uint32_t nBeta = 200;
 
-static const uint32_t steps = baseSize * 10000;
+static const uint32_t steps = baseSize * 1000;
 static const uint32_t modulo = baseSize;
+static const uint32_t initWarmup = 100;
 
 void writeBinary(std::vector<double>& data, const std::string& file)
 {
@@ -24,15 +26,21 @@ void writeBinary(std::vector<double>& data, const std::string& file)
 
 int main()
 {
+    auto start = std::chrono::high_resolution_clock::now();
+
+    std::cout << "Setting up the oscilator." << std::endl;
     MCQoscilator oscilator(iBeta);
-    double beta = iBeta;
+    oscilator.warmup(initWarmup);
+
     std::vector<double> output;
 
     std::cout << "Iterating over betas: " << std::endl;
+    double beta = iBeta;
     for (uint32_t i = 0; i < nBeta; ++i)
     {
         std::cout << "beta " << beta << std::endl;
         std::vector<double> energies;
+        oscilator.warmup(1);
 
         for (uint32_t j = 0; j < steps; ++j)
         {
@@ -47,6 +55,7 @@ int main()
         output.push_back(modulo * std::accumulate(energies.begin(), energies.end(), 0.0) / steps);
 
         beta += dBeta;
+        oscilator.setBeta(beta);
     }
 
     std::string file("../data/");
@@ -62,6 +71,11 @@ int main()
 
     std::cout << "Writting to " << file << std::endl;
     writeBinary(output, file);
+
+    auto finish = std::chrono::high_resolution_clock::now();
+    std::cout   << "Finished in "
+                << std::chrono::duration_cast<std::chrono::milliseconds>(finish - start).count()
+                << "ms" << std::endl;
 
     return 0;
 }

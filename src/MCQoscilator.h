@@ -9,8 +9,8 @@
 #include <random>
 #include "pcg_random.hpp"
 
-static const uint32_t baseSize = 1 << 7;
-static const double stepRange = .5;
+static const uint32_t baseSize = 1 << 10;
+static const double stepRange = 0.9;
 
 class MCQoscilator
 {
@@ -19,6 +19,7 @@ public:
     void setBeta(double newBeta);
     void step();
     inline double energy() const {return m_energy;}
+    inline void warmup(uint32_t cycles) {for (uint32_t i = 0; i < baseSize * baseSize * cycles; ++i) step();}
 
 private:
     std::vector<double> m_slices;

@@ -15,6 +15,11 @@ m_factor1(baseSize/beta),
 m_factor2(beta/baseSize),
 m_energy(m_factor1/2)
 {
+    // Create initial state
+    std::normal_distribution<double> sliceGen;
+    for (auto& slice : m_slices) slice = sliceGen(m_twister);
+    
+    // calculate initial energy
     std::vector<double> differences(baseSize);
     std::adjacent_difference(m_slices.begin(), m_slices.end(), differences.begin());
     differences[0] -= m_slices.back();
