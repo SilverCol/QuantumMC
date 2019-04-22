@@ -18,6 +18,7 @@ public:
     explicit MCQoscilator(double beta);
     void setBeta(double newBeta);
     void step();
+    inline double energy() const {return m_energy;}
 
 private:
     std::vector<double> m_slices;
