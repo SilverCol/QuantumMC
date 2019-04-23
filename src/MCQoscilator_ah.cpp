@@ -59,13 +59,15 @@ void MCQoscilator_ah::setBeta(double newBeta)
     )/ m_beta;
 }
 
-// TODO has not been modified to anharmonic yet
 void MCQoscilator_ah::step()
 {
     const uint32_t j = m_spot(m_twister);
     const double newSlice = m_slices[j] + m_step(m_twister);
 
-    double squareDiff = newSlice*newSlice - m_slices[j] * m_slices[j];
+    double newSquare = newSlice*newSlice;
+    double oldSquare = m_slices[j] * m_slices[j];
+    double squareDiff =  newSquare - oldSquare;
+    double anharmonicDiff = squareDiff * (newSquare + oldSquare);
 
     double neighbours = 0;
     if (j == 0) neighbours += m_slices.back() + m_slices[1];
@@ -73,7 +75,7 @@ void MCQoscilator_ah::step()
     else neighbours += m_slices[j - 1] + m_slices[j + 1];
 
     double chunk1 = m_factor1 * (squareDiff + (m_slices[j] - newSlice)*neighbours); // kinetic
-    double chunk2 = m_factor2 * squareDiff / 2;                                     // potential
+    double chunk2 = m_factor2 * (squareDiff / 2 + anharmonicDiff);                  // potential
 
     double probability = std::exp(-chunk1 - chunk2);
     if (probability > 1)
