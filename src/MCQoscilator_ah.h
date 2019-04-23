@@ -18,7 +18,9 @@ public:
     explicit MCQoscilator_ah(double beta);
     void setBeta(double newBeta);
     void step();
-    inline double energy() const {return m_energy;}
+    inline double energy() const {return m_kinetic + m_potential;}
+    inline double kinetic() const {return m_kinetic;}
+    inline double potential() const {return m_potential;}
     inline void warmup(uint32_t cycles) {for (uint32_t i = 0; i < baseSize * baseSize * cycles; ++i) step();}
 
 private:
@@ -30,7 +32,8 @@ private:
     double m_beta;
     double m_factor1;
     double m_factor2;
-    double m_energy;
+    double m_kinetic;
+    double m_potential;
 };
 
 
