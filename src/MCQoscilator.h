@@ -10,7 +10,7 @@
 #include "pcg_random.hpp"
 
 static const uint32_t baseSize = 1 << 10;
-static const double stepRange = 0.9;
+static const double stepRange = 1.0;
 
 class MCQoscilator
 {

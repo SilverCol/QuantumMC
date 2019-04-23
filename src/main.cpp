@@ -10,9 +10,9 @@ static const double iBeta = 1;
 static const double dBeta = 1;
 static const uint32_t nBeta = 200;
 
-static const uint32_t steps = baseSize * 1000;
-static const uint32_t modulo = baseSize;
-static const uint32_t initWarmup = 100;
+static const uint32_t steps = baseSize * 10000;
+static const uint32_t modulo = 128;
+static const uint32_t initWarmup = 1000;
 
 void writeBinary(std::vector<double>& data, const std::string& file)
 {
@@ -64,9 +64,9 @@ int main()
     file.append("_");
     file.append(std::to_string(baseSize));
     file.append("_");
-    file.append(std::to_string(steps));
+    file.append(std::to_string((uint32_t)(iBeta + nBeta * dBeta - dBeta)));
     file.append("_");
-    file.append(std::to_string(stepRange));
+    file.append(std::to_string((uint32_t)(100*stepRange)));
     file.append(".bin");
 
     std::cout << "Writting to " << file << std::endl;
