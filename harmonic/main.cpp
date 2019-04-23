@@ -58,7 +58,7 @@ int main()
         oscilator.setBeta(beta);
     }
 
-    std::string file("../data/");
+    std::string file("../../harmonic/data/");
     if (dBeta > 0) file.append("cooling");
     else file.append("heating");
     file.append("_");
