@@ -39,7 +39,8 @@ int main()
     for (uint32_t i = 0; i < nBeta; ++i)
     {
         std::cout << "beta " << beta << std::endl;
-        std::vector<double> energies;
+        std::vector<double> kinetics;
+        std::vector<double> potentials;
         oscilator.warmup(1);
 
         for (uint32_t j = 0; j < steps; ++j)
@@ -47,12 +48,14 @@ int main()
             oscilator.step();
             if (j % modulo == 0)
             {
-                energies.push_back(oscilator.energy());
+                kinetics.push_back(oscilator.kinetic());
+                potentials.push_back(oscilator.potential());
             }
         }
 
         output.push_back(beta);
-        output.push_back(modulo * std::accumulate(energies.begin(), energies.end(), 0.0) / steps);
+        output.push_back(modulo * std::accumulate(kinetics.begin(), kinetics.end(), 0.0) / steps);
+        output.push_back(modulo * std::accumulate(potentials.begin(), potentials.end(), 0.0) / steps);
 
         beta += dBeta;
         oscilator.setBeta(beta);
