@@ -41,7 +41,7 @@
 \newcommand{\vv}{\vec{v}}
 \newcommand{\vo}{\vec{\omega}}
 \newcommand{\uvs}{\underline{\vs}}
-\newcommand{\expected}[1]{\langle #1 \rangle}
+\newcommand{\expected}[1]{\left\langle #1 \right\rangle}
 \newcommand{\D}{\Delta}
 
 \begin{document}
@@ -53,14 +53,51 @@
 	\date{\today}
 	\maketitle
 
-    S pomočjo Metropolisovega algoritma bomo raziskali ravnovesna termalna stanja klasičnih Isingovih in Heisenbergovih
-    spinov.
+    Z metodo Monte-Carlo obravnavamo primer 1D kvantnega oscilatorja v potencialu $V(q) = \half q^2 + \lambda q^4$.
+    Zanimata nas harmonski ($\lambda = 0$) in anharmonski ($\lambda = 1$) primer. \\
+
+    Simulacijo izvajamo v zvezni pozicijski bazi $\{ \ket{q_j} \}_{j=1}^M, q_j \in \mathbb{R}$.
+    Verjetnost za prehod je tedaj sorazmerna:
 
     \begin{equation}\label{eq1}
-        \expected{a} = \int d^N\x w(\x) a(\x) = \lim_{M \to \infty} \frac{1}{M} \sum_{j=1}^M a(\x_j)
+        P_{q_1, q_2} \propto \exp \left( -\frac{M}{2\beta}(q_2 - q_1)^2 - \frac{\beta}{M}V(q_1) \right)
     \end{equation}
 
-    \section{2D Isingov model}
+    Metropolisov algoritem je naslednji:
+
+    \begin{enumerate}
+        \item Izberemo si začetno konfiguracijo - elemente $\ket{q_j}$ generiramo po normalni porazdelitvi.
+        \item Izberemo si naključen element $\ket{q_j}$.
+        \item Predlagamo potezo $q'_j = q_j + \xi$, kjer je $\xi \in (-\varepsilon, \varepsilon)$ enakomerno porazdeljen.
+        \item Potezo sprejmemo z verjetnostjo:
+        \begin{equation}\label{eq2}
+            min \left\{ 1, \frac{P_{q_{j-1}, q'_j} P_{q'_j, q_{j+1}}}{P_{q_{j-1}, q_j} P_{q_j, q_{j+1}}} \right\},
+        \end{equation}
+        \begin{equation}\label{eq3}
+            \begin{split}
+                \frac{P_{q_{j-1}, q'_j} P_{q'_j, q_{j+1}}}{P_{q_{j-1}, q_j} P_{q_j, q_{j+1}}} =
+                \exp \biggl[ &-\frac{M}{\beta}\left(q'_j^2 - q_j^2 + (q_j - q'_j)(q_{j-1} + q_{j+1})\right) \\
+                            &- \frac{\beta}{M}\left(V(q'_j) - V(q_j)\right) \biggr]
+            \end{split}
+        \end{equation}
+    \end{enumerate}
+
+    Raziskali bomo povprečne vrednosti celotne, kinetične in potencialne energije v odvisnosti od inverzne temperature
+    $\beta$.
+    Po znani termodinamski identiteti pridemo do izraza za povprečno celotno energijo:
+
+    \begin{equation}\label{eq5}
+        \expected{H} = \expected{\frac{M}{2\beta} - \frac{M}{2\beta^2}\sum_{j=1}^M (q_{j+1} - q_j)^2
+                                + \frac{1}{M}\sum_{j=1}^M V(q_j)}
+    \end{equation}
+
+    Za izračun povprečne vrednosti kinetične energije $\expected{T}$ z Metropolisovim algoritmom vzorčimo prva dva člena
+    na desni strani zgornjega izraza, za izračun potencialne $\expected{V}$ pa tretjega.
+    Povprečna vrednost celotne energije je tedaj vsota $\expected{H} = \expected{T} + \expected{V}$.
+
+    \section{Harmonski oscilator}
+
+    \ldots
 
     \iffalse
     \begin{figure}
