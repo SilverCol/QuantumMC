@@ -76,7 +76,7 @@
         \begin{equation}\label{eq3}
             \begin{split}
                 \frac{P_{q_{j-1}, q'_j} P_{q'_j, q_{j+1}}}{P_{q_{j-1}, q_j} P_{q_j, q_{j+1}}} =
-                \exp \biggl[ &-\frac{M}{\beta}\left(q'_j^2 - q_j^2 + (q_j - q'_j)(q_{j-1} + q_{j+1})\right) \\
+                \exp \biggl[ &-\frac{M}{\beta}\left(q_j^{\prime 2} - q_j^2 + (q_j - q'_j)(q_{j-1} + q_{j+1})\right) \\
                             &- \frac{\beta}{M}\left(V(q'_j) - V(q_j)\right) \biggr]
             \end{split}
         \end{equation}
@@ -113,7 +113,18 @@
         \expected{T} = \expected{V} = \frac{\expected{H}}{2}
     \end{equation}
 
-    \iffalse
+    Uporabimo sedaj Monte-Carlo metodo.
+    Simulacija naj teče od nizkih $\beta$ proti visokim.
+    Pred začetkom je izvedenih $100 \times M^2$ poskusov Metropolisovih potez, da se vzpostavi smiselno začetno stanje.
+    Pri vsaki novi temperaturi je nato pred začetkom narejenih še $M^2$ potez, da se sistem uravnovesi.
+    Nato steče $10000 \times M$ potez, pri čemer na vsakih $128$ odčitamo kinetično in potencialno energijo. \\
+
+    Poglejmo si, kaj pokaže naša simulacija: slika~\ref{slika1}a prikazuje popolno ujemanje s teorijo v limiti nizkih
+    temperatur ($\beta \to \infty$), a zelo slabo ujemanje pri višjih temperaturah ($\beta \to 0$).
+    Še huje je, kar vidimo na sliki~\ref{slika1}b: metoda odpove tudi pri prenizkih temperaturah (visokih $\beta$).
+    To odstopanje je preprosta posledica dejstva, da so prehodne verjetnosti v naši metodi izražene zgolj do prvega
+    reda v $\frac{\beta}{M}$.
+
     \begin{figure}
         \centering
         \begin{subfigure}{\textwidth}
@@ -124,16 +135,28 @@
             \includegraphics[width = \textwidth]{slika2.pdf}
             \caption{}
         \end{subfigure}
+        \caption{Rezultati simulacije termalnega stanja harmonskega oscilatorja.
+        S $H_a$ je označena analitično izračunana vrednost povprečne energije.}
+        \label{slika1}
+    \end{figure}
+
+    \section{Anharmonski oscilator}
+
+    \ldots
+
+    \begin{figure}
+        \centering
         \begin{subfigure}{\textwidth}
             \includegraphics[width = \textwidth]{slika3.pdf}
             \caption{}
         \end{subfigure}
-        \caption{Fazni prehodi Isingovega modela za različno velike mreže.
-        Oranžna črta prilagojena na graf magnetizacije predstavlja Onsagerjevo formulo za spontano magnetizacijo.
-        Z rdečo vertikalno črto je označena kritična temperatura določena s to prilagoditvijo.
-        Vse je računano pri sklopitveni konstanti $J = 1$.}
-        \label{slika1}
+        \begin{subfigure}{\textwidth}
+            \includegraphics[width = \textwidth]{slika4.pdf}
+            \caption{}
+        \end{subfigure}
+        \caption{Rezultati simulacije termalnega stanja anharmonskega oscilatorja.
+        S $H_a$ je označena analitično izračunana vrednost povprečne energije.}
+        \label{slika2}
     \end{figure}
-    \fi
 
 \end{document}

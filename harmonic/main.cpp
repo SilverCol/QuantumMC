@@ -6,8 +6,8 @@
 #include <chrono>
 #include "MCQoscilator.h"
 
-static const double iBeta = 5;
-static const double dBeta = 5;
+static const double iBeta = 100;
+static const double dBeta = -0.5;
 static const uint32_t nBeta = 200;
 
 static const uint32_t steps = baseSize * 10000;
