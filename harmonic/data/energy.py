@@ -3,7 +3,7 @@ import numpy as np
 
 points = 200
 L = 1024
-data = np.fromfile('cooling_' + str(L) + '_200_100.bin')
+data = np.fromfile('heating_' + str(L) + '_0_100.bin')
 data = np.reshape(data, (3, points), 'F')
 
 plt.rcParams.update({'font.size': 15})

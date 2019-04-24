@@ -121,6 +121,7 @@
 
     Poglejmo si, kaj pokaže naša simulacija: slika~\ref{slika1}a prikazuje popolno ujemanje s teorijo v limiti nizkih
     temperatur ($\beta \to \infty$), a zelo slabo ujemanje pri višjih temperaturah ($\beta \to 0$).
+    Enako odstopanje pri višjih temperaturah dobimo tudi, če simulacijo poganjamo od višjih $\beta$ proti nižjim.
     Še huje je, kar vidimo na sliki~\ref{slika1}b: metoda odpove tudi pri prenizkih temperaturah (visokih $\beta$).
     To odstopanje je preprosta posledica dejstva, da so prehodne verjetnosti v naši metodi izražene zgolj do prvega
     reda v $\frac{\beta}{M}$.
@@ -142,7 +143,23 @@
 
     \section{Anharmonski oscilator}
 
-    \ldots
+    Lastne energije anharmonskega oscilatorja $E_n$ smo s spektralnimi metodami računali v eni od prejšnjih vaj.
+    Izračunamo torej $170$ prvih lastnih vrednosti in z njimi računamo izraz za povprečno vrednost energije:
+
+    \begin{equation}\label{eq9}
+        \expected{H} = \frac{\sum_n E_n e^{-\beta E_n}}{\sum_n e^{-\beta E_n}}
+    \end{equation}
+
+    Virialni teorem nam tokrat pravi, da bo povprečna vrednost kinetične energije nekoliko večja od potencialne:
+
+    \begin{equation}\label{eq10}
+        \expected{T} = \expected{V} + \expected{q^4}
+    \end{equation}
+
+    Simulacijo poženemo enako kot prej.
+    Rezultati se tudi tu popolnoma ujemajo s teorijo, ko gredo temperature proti nič, se pa obdstopanje pri prenizkih
+    temperaturah pojavi bolj zgodaj kot v harmonskem primeru (slika~\ref{slika2}a).
+    Odstopanje popravimo, če povečamo velikost pozicijske baze (slika~\ref{slika2}b).
 
     \begin{figure}
         \centering
