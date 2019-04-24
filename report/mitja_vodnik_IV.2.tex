@@ -97,7 +97,21 @@
 
     \section{Harmonski oscilator}
 
-    \ldots
+    Ker poznamo lastne energije $E_n = n + \half$, lahko pričakovan rezultat izrazimo povsem analitično:
+
+    \begin{equation}\label{eq6}
+        \expected{H} = -\pder{\log{z(\beta)}}{\beta}, \quad
+        z(\beta) = \sum_n e^{-\beta E_n} = \frac{1}{2 \sinh{\frac{\beta}{2}}}
+    \end{equation}
+    \begin{equation}\label{eq7}
+        \Rightarrow \expected{H} = \half \coth{\frac{\beta}{2}}
+    \end{equation}
+
+    Virialni teorem nam pove, da sta povprečni kinetična in potencialna energija enaki:
+
+    \begin{equation}\label{eq8}
+        \expected{T} = \expected{V} = \frac{\expected{H}}{2}
+    \end{equation}
 
     \iffalse
     \begin{figure}
